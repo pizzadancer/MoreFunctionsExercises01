@@ -34,7 +34,7 @@ function holdStatus(arr){
   }
 }
 
-let fuelLevel = 50_000;
+let fuelLevel = 200_000;
 let cargoHold = ['meal kits', 'space suits', 'first-aid kit', 'satellite', 'gold', 'water', 'AE-35 unit'];
 
 console.log("Fuel level: " + checkFuel(fuelLevel));
@@ -72,22 +72,27 @@ function updateFuelTanks (fuelTanks, fuelAmountsToStore) {
 }
 const chalk = require('chalk');
 
+
+console.log(chalk.black.bold.bgYellowBright("\n\nEmergency LCSA [Launch Code Space Administration] Inspection.\n"));
+console.log(chalk.underline.yellowBright(`Scanning for Safe Fuel Levels.`));
+
 let excessFuelFound = inspectFuelLevels(fuelLevel);
-console.log(chalk.black.bold.bgYellowBright("\n\nEmergency LCSA [Launch Code Space Administration] Inspection."));
 if (excessFuelFound === fuelLevel) {
   // console.log("good here");
   console.log(chalk.greenBright("\nShuttle Fuel at Appropriate LCSA Standards.\n"))
+  excessFuelFound = 0;
 } else {
   console.log(chalk.underline.red(`\nExcess Fuel Detected in the Main Tank!`));
   console.log(`Correcting proper fuel amounts to LCSA regulation levels...\n`);
 }
 
-// Finds the proper amounts of fuel per tank
+// Finds the proper amounts of fuel per tank //
 let fuelAmountsToStore = storeExcessFuel(fuelLevel, excessFuelFound);
-// Updates fuel tanks with agency standard fuel quantity
+
+// Updates fuel tanks with agency standard fuel quantity //
 updateFuelTanks(fuelTanks, fuelAmountsToStore);
 
-// console.log(fuelTanks); // LCSA Oversight Console (uncomment if authorized)
+
 
 // CARGO HOLD INSPECTION //
 
@@ -109,6 +114,7 @@ let cargoArray = ["railguns", "torpedoes", "black composite stealthTech", "medic
 console.log(chalk.underline.yellowBright(`Scanning for Contamination in the Cargo Hold.`));
 
 // console.log(chalk.underline.yellowBright(`Corruption Detected in Cargo Hold!`));
+
 let inspectCargo = function (cargoArray) {
   let contaminationCount = 0;
   for (let i = 0; i < cargoArray.length; i++){
@@ -134,5 +140,16 @@ if (contaminationReport === 0) {
 // console.log(containmentCrate);
 
 
-console.log(chalk.black.bold.bgGreenBright(`Inspection Complete.`));
-///testing branches again
+console.log(chalk.black.bold.bgGreenBright(`Inspection Complete.\n\n`));
+console.log(containmentCrate);
+// LCSA Oversight Console (uncomment next comment if authorized)
+console.log(irs(fuelTanks["reserveTank"], containmentCrate));
+
+function irs (takenFuel, weaponsHaul) {
+  if ((weaponsHaul.length === 0) || (takenFuel === 0)) {
+    return "Mission failed.";
+  } else {
+    return chalk.blueBright(`Raided ${takenFuel}kg of fuel from the tanks, and stole \(${weaponsHaul[0]}\) and \(${weaponsHaul[1]}\) from the cargo hold.\n\n Mission Accomplished.`);
+  }
+  
+}
