@@ -1,3 +1,7 @@
+const chalk = require('chalk');
+
+// 11.10.1. Practice Your Skills/////////////////
+/*
 let veryAnon = function (n) {
   if (typeof n === "number"){
     return n * 3;
@@ -11,9 +15,10 @@ console.log(veryAnon(["a"]));
 
 arr = ['Elocution', 21, 'Clean teeth', 100];
 console.log(arr.map(veryAnon));
+*/
+//////////////////////////////////////////////////
+/// PART 2 ///////////Raid a Shuttle//////////////
 
-
-/// PART 2 ///
 function checkFuel(level) {
   if (level > 100000){
     return 'green';
@@ -34,14 +39,17 @@ function holdStatus(arr){
   }
 }
 
+//------ ADJUST THESE VARIABLES FOR PROGRAM TESTING ------///
 let fuelLevel = 200_000;
-let cargoHold = ['meal kits', 'space suits', 'first-aid kit', 'satellite', 'gold', 'water', 'AE-35 unit'];
+// Uncomment for a "safer" inspection & comment out cargoArray
+// let cargoArray = ['meal kits', 'space suits', 'first-aid kit', 'satellite', 'gold', 'water', 'AE-35 unit'];
+let cargoArray = ["railguns", "torpedoes", "black composite stealthTech", "medical supplies", "meal kits", "space suits", "first-aid kit"];
 
 console.log("Fuel level: " + checkFuel(fuelLevel));
-console.log("Hold status: " + holdStatus(cargoHold));
+console.log("Hold status: " + holdStatus(cargoArray));
 
-//
-
+/////// FUEL TANK INSPECTION ////////
+///
 let fuelTanks = {
   "main": 1,
   "reserveTank": 2
@@ -70,7 +78,7 @@ function updateFuelTanks (fuelTanks, fuelAmountsToStore) {
     i++;
   }
 }
-const chalk = require('chalk');
+
 
 
 console.log(chalk.black.bold.bgYellowBright("\n\nEmergency LCSA [Launch Code Space Administration] Inspection.\n"));
@@ -80,7 +88,7 @@ let excessFuelFound = inspectFuelLevels(fuelLevel);
 if (excessFuelFound === fuelLevel) {
   // console.log("good here");
   console.log(chalk.greenBright("\nShuttle Fuel at Appropriate LCSA Standards.\n"))
-  excessFuelFound = 0;
+  excessFuelFound = 0; 
 } else {
   console.log(chalk.underline.red(`\nExcess Fuel Detected in the Main Tank!`));
   console.log(`Correcting proper fuel amounts to LCSA regulation levels...\n`);
@@ -93,10 +101,10 @@ let fuelAmountsToStore = storeExcessFuel(fuelLevel, excessFuelFound);
 updateFuelTanks(fuelTanks, fuelAmountsToStore);
 
 
+////////////////////////////////
+/////// CARGO HOLD INSPECTION 
 
-// CARGO HOLD INSPECTION //
-
-let containmentCrate = [];
+let containmentCrate = []; // for "saving" items
 let scanForContaminants = function (item) {
   if (item.includes("stealth")) {
     containmentCrate.push(item);
@@ -106,14 +114,6 @@ let scanForContaminants = function (item) {
     return "contamination found!";
   }
 }
-
-// Test variables for a "safer" inspection
-// let cargoArray = ["rail", "torpedoes", "black comp", "medical supplies"];
-let cargoArray = ["railguns", "torpedoes", "black composite stealthTech", "medical supplies"];
-
-console.log(chalk.underline.yellowBright(`Scanning for Contamination in the Cargo Hold.`));
-
-// console.log(chalk.underline.yellowBright(`Corruption Detected in Cargo Hold!`));
 
 let inspectCargo = function (cargoArray) {
   let contaminationCount = 0;
@@ -128,9 +128,10 @@ let inspectCargo = function (cargoArray) {
     }
   }
   return contaminationCount;
-  // console.log(chalk.red(`(${contaminationCount}) Contaminations Found!`));
 };
 
+
+console.log(chalk.underline.yellowBright(`Scanning for Contamination in the Cargo Hold.`));
 let contaminationReport = inspectCargo(cargoArray);
 if (contaminationReport === 0) {
   console.log(chalk.greenBright(`\nCargo Hold is within LCSA Regulation Standards.\n`));
@@ -140,8 +141,11 @@ if (contaminationReport === 0) {
 // console.log(containmentCrate);
 
 
-console.log(chalk.black.bold.bgGreenBright(`Inspection Complete.\n\n`));
-console.log(containmentCrate);
+console.log(chalk.black.bold.bgGreenBright(`Inspection Complete.\n`));
+// console.log(containmentCrate);
+console.log("Fuel level: " + checkFuel(fuelLevel));
+console.log("Hold status: " + holdStatus(cargoArray));
+
 // LCSA Oversight Console (uncomment next comment if authorized)
 console.log(irs(fuelTanks["reserveTank"], containmentCrate));
 
@@ -149,7 +153,7 @@ function irs (takenFuel, weaponsHaul) {
   if ((weaponsHaul.length === 0) || (takenFuel === 0)) {
     return "Mission failed.";
   } else {
-    return chalk.blueBright(`Raided ${takenFuel}kg of fuel from the tanks, and stole \(${weaponsHaul[0]}\) and \(${weaponsHaul[1]}\) from the cargo hold.\n\n Mission Accomplished.`);
+    return chalk.blueBright(`\nRaided ${takenFuel}kg of fuel from the tanks, and stole \(${weaponsHaul[0]}\) and \(${weaponsHaul[1]}\) from the cargo hold.\n\n Mission Accomplished.`);
   }
   
 }
