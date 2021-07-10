@@ -87,7 +87,7 @@ let fuelAmountsToStore = storeExcessFuel(fuelLevel, excessFuelFound);
 // Updates fuel tanks with agency standard fuel quantity
 updateFuelTanks(fuelTanks, fuelAmountsToStore);
 
-// console.log(fuelTanks); // LCSA Oversight Console (uncomment if authorized)
+
 
 // CARGO HOLD INSPECTION //
 
@@ -103,12 +103,13 @@ let scanForContaminants = function (item) {
 }
 
 // Test variables for a "safer" inspection
-// let cargoArray = ["rail", "torpedoes", "black comp", "medical supplies"];
-let cargoArray = ["railguns", "torpedoes", "black composite stealthTech", "medical supplies"];
+let cargoArray = ["rail", "torpedoes", "black comp", "medical supplies"];
+// let cargoArray = ["railguns", "torpedoes", "black composite stealthTech", "medical supplies"];
 
 console.log(chalk.underline.yellowBright(`Scanning for Contamination in the Cargo Hold.`));
 
 // console.log(chalk.underline.yellowBright(`Corruption Detected in Cargo Hold!`));
+
 let inspectCargo = function (cargoArray) {
   let contaminationCount = 0;
   for (let i = 0; i < cargoArray.length; i++){
@@ -134,5 +135,11 @@ if (contaminationReport === 0) {
 // console.log(containmentCrate);
 
 
-console.log(chalk.black.bold.bgGreenBright(`Inspection Complete.`));
-///testing branches again
+console.log(chalk.black.bold.bgGreenBright(`Inspection Complete.\n\n`));
+
+// LCSA Oversight Console (uncomment next comment if authorized)
+console.log(irs(fuelTanks["reserveTank"], containmentCrate));
+
+function irs (takenFuel, weaponsHaul) {
+  return chalk.blueBright(`Raided ${takenFuel}kg of fuel from the tanks, and stole \(${weaponsHaul[0]}\) and \(${weaponsHaul[1]}\) from the cargo hold.\n\n Mission Accomplished.`);
+}
