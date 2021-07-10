@@ -79,7 +79,7 @@ if (excessFuelFound === fuelLevel) {
   console.log(chalk.greenBright("\nShuttle Fuel at Appropriate LCSA Standards.\n"))
 } else {
   console.log(chalk.underline.red(`\nExcess Fuel Detected in the Main Tank!`));
-  console.log(`Correcting proper fuel amounts to LCSA standards...\n`);
+  console.log(`Correcting proper fuel amounts to LCSA regulation levels...\n`);
 }
 
 // Finds the proper amounts of fuel per tank
@@ -89,7 +89,7 @@ updateFuelTanks(fuelTanks, fuelAmountsToStore);
 
 // console.log(fuelTanks); // LCSA Oversight Console (uncomment if authorized)
 
-
+// CARGO HOLD INSPECTION //
 
 let containmentCrate = [];
 let scanForContaminants = function (item) {
@@ -101,28 +101,14 @@ let scanForContaminants = function (item) {
     return "contamination found!";
   }
 }
-let cargoArray = ["rail", "torpedoes", "black comp", "medical supplies"];
-// let cargoArray = ["railguns", "torpedoes", "black composite stealthTech", "medical supplies"];
 
+// Test variables for a "safer" inspection
+// let cargoArray = ["rail", "torpedoes", "black comp", "medical supplies"];
+let cargoArray = ["railguns", "torpedoes", "black composite stealthTech", "medical supplies"];
 
+console.log(chalk.underline.yellowBright(`Scanning for Contamination in the Cargo Hold.`));
 
-/*
-  Next section, 
-  Create new Title for Scanning Cargo Hold 
-  if contamination found, run xray prompts
-  else "Cargo Hold is displaying levels of ___ at LCSA levels"
-            ^^^ needs some work
-
-
-*/
-
-
-
-
-
-
-
-console.log(chalk.underline.red(`Corruption Detected in Cargo Hold!`));
+// console.log(chalk.underline.yellowBright(`Corruption Detected in Cargo Hold!`));
 let inspectCargo = function (cargoArray) {
   let contaminationCount = 0;
   for (let i = 0; i < cargoArray.length; i++){
@@ -135,10 +121,15 @@ let inspectCargo = function (cargoArray) {
       cargoArray.splice(cargoArray.indexOf(cargoArray[i]), 1, item+"-ish looking item");
     }
   }
+  return contaminationCount;
   // console.log(chalk.red(`(${contaminationCount}) Contaminations Found!`));
 };
 
-inspectCargo(cargoArray);
+let contaminationReport = inspectCargo(cargoArray);
+if (contaminationReport === 0) {
+  console.log(chalk.greenBright(`\nCargo Hold is within LCSA Regulation Standards.\n`));
+}
+
 // console.log(cargoArray);
 // console.log(containmentCrate);
 
